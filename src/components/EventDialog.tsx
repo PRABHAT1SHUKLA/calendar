@@ -622,7 +622,7 @@ const EventDialog: React.FC<EventDialogProps> = ({
                 onChange={handleUpdateChange}
               />
               <Button onClick={handleUpdate} className="w-full">
-                Save Event 
+                Update Event 
               </Button>
             </div>
           </DialogContent>
