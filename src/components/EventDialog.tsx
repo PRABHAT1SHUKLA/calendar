@@ -129,13 +129,15 @@ const EventDialog: React.FC<EventDialogProps> = ({
                 onChange={handleInputChange}
               />
               <Input
-                placeholder="Start Time (e.g., 10:00 AM)"
+                type="time"
+                placeholder="Start Time"
                 name="startTime"
                 value={formData.startTime}
                 onChange={handleInputChange}
               />
               <Input
-                placeholder="End Time (e.g., 11:00 AM)"
+                type="time"
+                placeholder="End Time"
                 name="endTime"
                 value={formData.endTime}
                 onChange={handleInputChange}
