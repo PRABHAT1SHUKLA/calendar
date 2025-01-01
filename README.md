@@ -1,51 +1,69 @@
-# React + TypeScript + Vite
+Event Management Calendar App
+A modern and intuitive calendar app that allows users to manage their events efficiently. With features like adding, editing, and deleting events, this app provides a seamless event management experience. Built using React, Vite, TypeScript, Tailwind CSS, and Shadcn components, the app also supports UI persistence via local storage for a smooth, uninterrupted user experience.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Features
+Event Management:
 
-Currently, two official plugins are available:
+Add, edit, and delete events with customizable titles, start times, end times, and descriptions.
+View events for a specific day and manage them easily.
+Calendar Grid:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Clean, responsive, and dynamic calendar layout for easy navigation between days.
+Each day shows a list of events, with smooth scrolling for better user experience when there are multiple events.
+Search Functionality:
 
-## Expanding the ESLint configuration
+Quickly find events by title or description using a search bar, making event management more efficient.
+UI Persistence:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Events are stored in localStorage, ensuring that user data is preserved even after page reloads.
+Responsive Design:
 
-- Configure the top-level `parserOptions` property like this:
+The application is fully responsive, ensuring an optimal experience on both desktop and mobile devices.
+Clean and Modern UI:
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+Styled with Tailwind CSS for a clean, modern look. All UI components are built using Shadcn components for a polished user interface.
+Deployed Version:
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+A fully functional deployed version of the app is available, providing live access to all features.
+Technologies Used
+React: A JavaScript library for building user interfaces, used to structure the application.
+Vite: A fast and modern build tool that speeds up the development process and improves build times.
+TypeScript: A superset of JavaScript that adds type safety and enhances the developer experience.
+Tailwind CSS: A utility-first CSS framework used for rapid UI styling.
+Shadcn Components: Pre-built UI components that are highly customizable and accessible.
+Setup and Installation
+To run the project locally, follow these steps:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+Clone the Repository:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
-# calendar
+bash
+Copy code
+git clone <repository-url>
+cd <project-directory>
+Install Dependencies:
+
+bash
+Copy code
+npm install
+Run the Development Server:
+
+bash
+Copy code
+npm run dev
+Open your browser and navigate to http://localhost:3000.
+
+Usage
+To create a new event, click on the "Create Event" button, enter the event details (title, start time, end time, description), and save it.
+You can edit or delete events by clicking on them in the calendar grid.
+Use the search bar at the top of the event list to find specific events by title or description.
+UI Persistence
+This app utilizes localStorage to store events. As a result, the events will persist even if the page is reloaded or the user leaves the app and returns later.
+
+Deployment
+The app is deployed and accessible online. View the deployed version here.
+
+Contributing
+If you wish to contribute to the project, feel free to fork the repository, create a branch, and submit a pull request. Any improvements or bug fixes are welcome!
+
+License
+This project is open-source and available under the MIT License.
