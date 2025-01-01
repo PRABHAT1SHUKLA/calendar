@@ -13,6 +13,12 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { PlusCircle } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { format } from "date-fns";
+
+const formatTime = (isoString: string) => {
+  const date = new Date(isoString);
+  return format(date, "h:mm a"); // e.g., "9:00 AM"
+};
 
 interface Event {
   id: string;
@@ -126,10 +132,10 @@ const EventDialog: React.FC<EventDialogProps> = ({
                   </CardHeader>
                   <CardContent>
                     <p>
-                      <strong>Start:</strong> {event.startTime}
+                      <strong>Start:</strong>  {formatTime(event.startTime)}
                     </p>
                     <p>
-                      <strong>End:</strong> {event.endTime}
+                      <strong>End:</strong>  {formatTime(event.endTime)}
                     </p>
                   </CardContent>
                 </Card>
