@@ -3,10 +3,20 @@ import { format, addMonths, subMonths, startOfMonth, endOfMonth, startOfWeek, ad
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import EventDialog from "./EventDialog";
+
+interface Event {
+  id: string;
+  title: string;
+  startTime: string;
+  endTime: string;
+  description?: string;
+}
 
 const CalendarGrid: React.FC = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [events, setEvents] = useState<{ [key: string]: Event[] }>({});
 
   const startDate = startOfWeek(startOfMonth(currentDate));
   const endDate = addDays(endOfMonth(currentDate), 6 - endOfMonth(currentDate).getDay());
@@ -22,6 +32,32 @@ const CalendarGrid: React.FC = () => {
 
   const handlePrevMonth = () => setCurrentDate((prev) => subMonths(prev, 1));
   const handleNextMonth = () => setCurrentDate((prev) => addMonths(prev, 1));
+
+  const handleCreateEvent = () => {
+    if (!selectedDate) return;
+
+    const newEvent: Event = {
+      id: Date.now().toString(),
+      title: `New Event for ${selectedDate}`,
+      startTime: "10:00 AM",
+      endTime: "11:00 AM",
+      description: "Description goes here",
+    };
+
+    setEvents((prev) => ({
+      ...prev,
+      [selectedDate]: [...(prev[selectedDate] || []), newEvent],
+    }));
+  };
+
+  const handleEventClick = (event: Event) => {
+    console.log("View/Edit Event:", event);
+    // Implement logic for viewing or editing the event
+  };
+
+  const handleDayClick = (date: Date) => {
+    setSelectedDate(format(date, "yyyy-MM-dd"));
+  };
 
   return (
     <div className="p-6">
@@ -50,11 +86,11 @@ const CalendarGrid: React.FC = () => {
         {days.map((date, idx) => (
           <Card
             key={idx}
-            onClick={() => setSelectedDate(date)}
+            onClick={() => handleDayClick(date)}
             className={cn(
               "p-4 text-center cursor-pointer",
               isToday(date) && "border-blue-500 bg-blue-50",
-              selectedDate && date.toDateString() === selectedDate.toDateString() && "bg-blue-100 border-blue-600",
+              selectedDate === format(date, "yyyy-MM-dd") && "bg-blue-100 border-blue-600",
               isWeekend(date) ? "text-red-500" : "text-gray-900",
               date.getMonth() !== currentDate.getMonth() && "text-gray-400"
             )}
@@ -63,6 +99,16 @@ const CalendarGrid: React.FC = () => {
           </Card>
         ))}
       </div>
+
+      {/* Event Dialog */}
+      {selectedDate && (
+        <EventDialog
+          selectedDate={selectedDate}
+          events={events[selectedDate] || []}
+          onCreateEvent={handleCreateEvent}
+          onEventClick={handleEventClick}
+        />
+      )}
     </div>
   );
 };
