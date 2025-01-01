@@ -1,69 +1,53 @@
-Event Management Calendar App
-A modern and intuitive calendar app that allows users to manage their events efficiently. With features like adding, editing, and deleting events, this app provides a seamless event management experience. Built using React, Vite, TypeScript, Tailwind CSS, and Shadcn components, the app also supports UI persistence via local storage for a smooth, uninterrupted user experience.
+# Calendar App - Event Management
 
-Features
-Event Management:
+A calendar app built with React, Vite, TypeScript, Tailwind CSS, and Shadcn components. It allows users to manage events with a clean and responsive UI, featuring persistent event storage using `localStorage`. The application also includes a fully functional calendar grid with event creation, validation (to prevent overlapping events), and a deployed version for easy access.
 
-Add, edit, and delete events with customizable titles, start times, end times, and descriptions.
-View events for a specific day and manage them easily.
-Calendar Grid:
+## Features
 
-Clean, responsive, and dynamic calendar layout for easy navigation between days.
-Each day shows a list of events, with smooth scrolling for better user experience when there are multiple events.
-Search Functionality:
+- **Event Management**: Add, edit, and delete events on specific dates.
+- **Event Validation**: Prevent overlapping events by checking time conflicts.
+- **Persistent UI**: Save event data and UI state using `localStorage` to maintain state across sessions.
+- **Calendar Grid**: Fully implemented calendar grid with easy navigation between months.
+- **Responsive Design**: Tailwind CSS for mobile-first design.
+- **Deployed Version**: A live version of the app is available for viewing.
 
-Quickly find events by title or description using a search bar, making event management more efficient.
-UI Persistence:
+## Technologies Used
 
-Events are stored in localStorage, ensuring that user data is preserved even after page reloads.
-Responsive Design:
+- **React** - Frontend framework.
+- **Vite** - Fast build tool.
+- **TypeScript** - Static typing for JavaScript.
+- **Tailwind CSS** - Utility-first CSS framework.
+- **Shadcn Components** - UI components library.
+- **localStorage** - For persistent event storage.
 
-The application is fully responsive, ensuring an optimal experience on both desktop and mobile devices.
-Clean and Modern UI:
+## Project Setup
 
-Styled with Tailwind CSS for a clean, modern look. All UI components are built using Shadcn components for a polished user interface.
-Deployed Version:
+### Prerequisites
 
-A fully functional deployed version of the app is available, providing live access to all features.
-Technologies Used
-React: A JavaScript library for building user interfaces, used to structure the application.
-Vite: A fast and modern build tool that speeds up the development process and improves build times.
-TypeScript: A superset of JavaScript that adds type safety and enhances the developer experience.
-Tailwind CSS: A utility-first CSS framework used for rapid UI styling.
-Shadcn Components: Pre-built UI components that are highly customizable and accessible.
-Setup and Installation
-To run the project locally, follow these steps:
+Make sure you have the following installed:
 
-Clone the Repository:
+- **Node.js** (v14 or higher)
+- **npm** (Node package manager)
 
-bash
-Copy code
-git clone <repository-url>
-cd <project-directory>
-Install Dependencies:
+### Installation
 
-bash
-Copy code
-npm install
-Run the Development Server:
+1. Clone the repository:
 
-bash
-Copy code
-npm run dev
-Open your browser and navigate to http://localhost:3000.
+   ```bash
+   git clone https://github.com/your-username/calendar-app.git
+   cd calendar-app
 
-Usage
-To create a new event, click on the "Create Event" button, enter the event details (title, start time, end time, description), and save it.
-You can edit or delete events by clicking on them in the calendar grid.
-Use the search bar at the top of the event list to find specific events by title or description.
-UI Persistence
-This app utilizes localStorage to store events. As a result, the events will persist even if the page is reloaded or the user leaves the app and returns later.
+2. Install dependencies:
 
-Deployment
-The app is deployed and accessible online. View the deployed version here.
+   ```bash
+   npm install
 
-Contributing
-If you wish to contribute to the project, feel free to fork the repository, create a branch, and submit a pull request. Any improvements or bug fixes are welcome!
+3. Run the dev server:
 
-License
-This project is open-source and available under the MIT License.
+   ```bash
+   npm run dev
+
+4. Open your browser and navigate to http://localhost:3000 to view the app.
+
+
+
