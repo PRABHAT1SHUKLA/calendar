@@ -63,6 +63,18 @@ const EventDialog: React.FC<EventDialogProps> = ({
     description: "",
   });
 
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const filteredEvents = events.filter(
+    (event) =>
+      event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (event.description && event.description.toLowerCase().includes(searchQuery.toLowerCase()))
+  );
+  
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -148,6 +160,8 @@ const EventDialog: React.FC<EventDialogProps> = ({
       endTime: newEndTime.toISOString(),
       description: updatedData.description,
     };
+ 
+  
 
     onEditEvent(updatedEvent);
     setIsUpdateDialogOpen(false);
@@ -215,35 +229,69 @@ const EventDialog: React.FC<EventDialogProps> = ({
           <DialogTitle>Events for {selectedDate}</DialogTitle>
           <DialogDescription>Manage and view events for this day.</DialogDescription>
         </DialogHeader>
+       
+        {/* Search Bar */}
+        <div className="mb-4">
+          <Input
+            placeholder="Search events..."
+            value={searchQuery}
+            onChange={handleSearchChange}
+            className="w-full"
+          />
+        </div>
+
+        {/* Event List */}
         <div className="space-y-4">
           <ScrollArea className="max-h-[300px] overflow-y-auto space-y-2">
-            {events.length > 0 ? (
-              events.map((event) => (
-                <Card
-                  key={event.id}
-                  className="cursor-pointer hover:shadow-lg transition-shadow mb-2"
-                  onClick={() => handleEventClick(event)}
-                >
-                  <CardHeader>
-                    <CardTitle className="text-lg">{event.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm">
-                      <strong>Start:</strong> {formatTime(event.startTime)}
-                    </p>
-                    <p className="text-sm">
-                      <strong>End:</strong> {formatTime(event.endTime)}
-                    </p>
-                    {event.description && (
-                      <p className="text-sm mt-2">{event.description}</p>
-                    )}
-                  </CardContent>
-                </Card>
-              ))
-            ) : (
-              <p className="text-center text-gray-500">No events scheduled for this day.</p>
-            )}
+            {searchQuery.length === 0
+              ? events.map((event) => (
+                  <Card
+                    key={event.id}
+                    className="cursor-pointer hover:shadow-lg transition-shadow mb-2"
+                    onClick={() => handleEventClick(event)}
+                  >
+                    <CardHeader>
+                      <CardTitle className="text-lg">{event.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm">
+                        <strong>Start:</strong> {formatTime(event.startTime)}
+                      </p>
+                      <p className="text-sm">
+                        <strong>End:</strong> {formatTime(event.endTime)}
+                      </p>
+                      {event.description && (
+                        <p className="text-sm mt-2">{event.description}</p>
+                      )}
+                    </CardContent>
+                  </Card>
+                ))
+              : filteredEvents.length > 0
+              ? filteredEvents.map((event) => (
+                  <Card
+                    key={event.id}
+                    className="cursor-pointer hover:shadow-lg transition-shadow mb-2"
+                    onClick={() => handleEventClick(event)}
+                  >
+                    <CardHeader>
+                      <CardTitle className="text-lg">{event.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm">
+                        <strong>Start:</strong> {formatTime(event.startTime)}
+                      </p>
+                      <p className="text-sm">
+                        <strong>End:</strong> {formatTime(event.endTime)}
+                      </p>
+                      {event.description && (
+                        <p className="text-sm mt-2">{event.description}</p>
+                      )}
+                    </CardContent>
+                  </Card>
+                ))
+              : <p className="text-center text-gray-500">No events found.</p>}
           </ScrollArea>
+
           <Button
             variant="outline"
             className="w-full flex items-center justify-center"
