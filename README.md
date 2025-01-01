@@ -9,6 +9,7 @@ A calendar app built with React, Vite, TypeScript, Tailwind CSS, and Shadcn comp
 - **Persistent UI**: Save event data and UI state using `localStorage` to maintain state across sessions.
 - **Calendar Grid**: Fully implemented calendar grid with easy navigation between months.
 - **Responsive Design**: Tailwind CSS for mobile-first design.
+- **Search Functionality**: A proper Search feature to search for required events.
 - **Deployed Version**: A live version of the app is available for viewing.
 
 ## Technologies Used
