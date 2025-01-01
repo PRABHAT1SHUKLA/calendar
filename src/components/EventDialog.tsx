@@ -53,18 +53,52 @@ const EventDialog: React.FC<EventDialogProps> = ({
       alert("Please fill in all required fields!");
       return;
     }
+  
+    // Helper function to convert time to Date object
+    const convertToFullDate = (time: string) => {
+      const [hours, minutes] = time.split(":").map(Number);
+      const fullDate = new Date(selectedDate); // Base date
+      fullDate.setHours(hours, minutes, 0, 0); // Set time
+      return fullDate;
+    };
+  
+    const newStartTime = convertToFullDate(formData.startTime);
+    const newEndTime = convertToFullDate(formData.endTime);
+  
+    if (newStartTime >= newEndTime) {
+      alert("Start time must be earlier than end time!");
+      return;
+    }
+  
+    const isOverlapping = events.some((event) => {
+      const existingStartTime = new Date(event.startTime);
+      const existingEndTime = new Date(event.endTime);
+  
+      return (
+        (newStartTime >= existingStartTime && newStartTime < existingEndTime) ||
+        (newEndTime > existingStartTime && newEndTime <= existingEndTime) ||
+        (newStartTime <= existingStartTime && newEndTime >= existingEndTime)
+      );
+    });
+  
+    if (isOverlapping) {
+      alert("The new event's time overlaps with an existing event!");
+      return;
+    }
+  
     const newEvent: Event = {
       id: Date.now().toString(),
       title: formData.title,
-      startTime: formData.startTime,
-      endTime: formData.endTime,
+      startTime: newStartTime.toISOString(),
+      endTime: newEndTime.toISOString(),
       description: formData.description,
     };
-
+  
     onCreateEvent(newEvent);
     setFormData({ title: "", startTime: "", endTime: "", description: "" });
     setIsCreateDialogOpen(false);
   };
+  
 
   return (
     <Dialog>
