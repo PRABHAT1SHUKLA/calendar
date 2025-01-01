@@ -55,7 +55,7 @@ const CalendarGrid: React.FC = () => {
     // Implement logic for viewing or editing the event
   };
 
-  const handleDayClick = (date: Date) => {
+ const handleDayClick = (date: Date) => {
     setSelectedDate(format(date, "yyyy-MM-dd"));
   };
 
@@ -111,6 +111,20 @@ const CalendarGrid: React.FC = () => {
               [selectedDate]: [...(prev[selectedDate] || []), newEvent],
             }))
           }
+          onEditEvent={(updatedEvent) => {
+            setEvents((prev) => ({
+              ...prev,
+              [selectedDate]: (prev[selectedDate] || []).map((event) =>
+                event.id === updatedEvent.id ? updatedEvent : event
+              ),
+            }));
+          }}
+          onDeleteEvent={(eventId) => {
+            setEvents((prev) => ({
+              ...prev,
+              [selectedDate]: (prev[selectedDate] || []).filter((event) => event.id !== eventId),
+            }));
+          }}
           onEventClick={handleEventClick}
         />
       )}
