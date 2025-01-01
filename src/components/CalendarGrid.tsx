@@ -33,22 +33,22 @@ const CalendarGrid: React.FC = () => {
   const handlePrevMonth = () => setCurrentDate((prev) => subMonths(prev, 1));
   const handleNextMonth = () => setCurrentDate((prev) => addMonths(prev, 1));
 
-  const handleCreateEvent = () => {
-    if (!selectedDate) return;
+  // const handleCreateEvent = () => {
+  //   if (!selectedDate) return;
 
-    const newEvent: Event = {
-      id: Date.now().toString(),
-      title: `New Event for ${selectedDate}`,
-      startTime: "10:00 AM",
-      endTime: "11:00 AM",
-      description: "Description goes here",
-    };
+  //   const newEvent: Event = {
+  //     id: Date.now().toString(),
+  //     title: `New Event for ${selectedDate}`,
+  //     startTime: "10:00 AM",
+  //     endTime: "11:00 AM",
+  //     description: "Description goes here",
+  //   };
 
-    setEvents((prev) => ({
-      ...prev,
-      [selectedDate]: [...(prev[selectedDate] || []), newEvent],
-    }));
-  };
+  //   setEvents((prev) => ({
+  //     ...prev,
+  //     [selectedDate]: [...(prev[selectedDate] || []), newEvent],
+  //   }));
+  // };
 
   const handleEventClick = (event: Event) => {
     console.log("View/Edit Event:", event);

@@ -212,9 +212,9 @@ const EventDialog: React.FC<EventDialogProps> = ({
   selectedDate,
   events,
   onCreateEvent,
-  onEditEvent,
+  // onEditEvent,
   onDeleteEvent,
-  onEventClick,
+  // onEventClick,
 }) => {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isDetailsDialogOpen, setIsDetailsDialogOpen] = useState(false);
