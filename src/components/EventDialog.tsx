@@ -1,9 +1,18 @@
-import React from "react";
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import React, { useState } from "react";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { PlusCircle } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 interface Event {
   id: string;
@@ -16,11 +25,47 @@ interface Event {
 interface EventDialogProps {
   selectedDate: string;
   events: Event[];
-  onCreateEvent: () => void;
+  onCreateEvent: (event: Event) => void;
   onEventClick: (event: Event) => void;
 }
 
-const EventDialog: React.FC<EventDialogProps> = ({ selectedDate, events, onCreateEvent, onEventClick }) => {
+const EventDialog: React.FC<EventDialogProps> = ({
+  selectedDate,
+  events,
+  onCreateEvent,
+  onEventClick,
+}) => {
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    title: "",
+    startTime: "",
+    endTime: "",
+    description: "",
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = () => {
+    if (!formData.title || !formData.startTime || !formData.endTime) {
+      alert("Please fill in all required fields!");
+      return;
+    }
+    const newEvent: Event = {
+      id: Date.now().toString(),
+      title: formData.title,
+      startTime: formData.startTime,
+      endTime: formData.endTime,
+      description: formData.description,
+    };
+
+    onCreateEvent(newEvent);
+    setFormData({ title: "", startTime: "", endTime: "", description: "" });
+    setIsCreateDialogOpen(false);
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -59,11 +104,55 @@ const EventDialog: React.FC<EventDialogProps> = ({ selectedDate, events, onCreat
               <p className="text-center text-gray-500">No events scheduled for this day.</p>
             )}
           </ScrollArea>
-          <Button onClick={onCreateEvent} variant="ghost" className="w-full flex items-center justify-center">
+          <Button
+            variant="ghost"
+            className="w-full flex items-center justify-center"
+            onClick={() => setIsCreateDialogOpen(true)}
+          >
             <PlusCircle className="mr-2" /> Create Event
           </Button>
         </div>
       </DialogContent>
+
+      {isCreateDialogOpen && (
+        <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Create Event</DialogTitle>
+              <DialogDescription>Fill in the details for the new event.</DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <Input
+                placeholder="Event Title"
+                name="title"
+                value={formData.title}
+                onChange={handleInputChange}
+              />
+              <Input
+                placeholder="Start Time (e.g., 10:00 AM)"
+                name="startTime"
+                value={formData.startTime}
+                onChange={handleInputChange}
+              />
+              <Input
+                placeholder="End Time (e.g., 11:00 AM)"
+                name="endTime"
+                value={formData.endTime}
+                onChange={handleInputChange}
+              />
+              <Textarea
+                placeholder="Description (optional)"
+                name="description"
+                value={formData.description}
+                onChange={handleInputChange}
+              />
+              <Button onClick={handleSubmit} className="w-full">
+                Save Event
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
     </Dialog>
   );
 };

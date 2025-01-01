@@ -105,7 +105,12 @@ const CalendarGrid: React.FC = () => {
         <EventDialog
           selectedDate={selectedDate}
           events={events[selectedDate] || []}
-          onCreateEvent={handleCreateEvent}
+          onCreateEvent={(newEvent) =>
+            setEvents((prev) => ({
+              ...prev,
+              [selectedDate]: [...(prev[selectedDate] || []), newEvent],
+            }))
+          }
           onEventClick={handleEventClick}
         />
       )}
